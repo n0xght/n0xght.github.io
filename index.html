@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101110">
+  <title>~/n0ught</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%91%E2%80%8D%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;700&amp;family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+
+  <style>
+    :root { --ink:#101110; --paper:#ecece6; --muted:#a3a69d; --line:#444741; --acid:#c8fb42; --cut:14px; --cut-inner:13px; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; width:100%; color:var(--paper); background:var(--ink); font-family:"Geist Mono",monospace; }
+    body::before { content:""; position:fixed; inset:0; z-index:8; pointer-events:none; opacity:.12; background:repeating-linear-gradient(0deg,transparent 0 3px,#000 4px); }
+    ::selection { background:var(--acid); color:var(--ink); }
+    a,button { -webkit-tap-highlight-color:transparent; }
+    a:focus-visible,button:focus-visible { outline:3px solid var(--acid); outline-offset:5px; }
+    .shell { width:100%; max-width:1440px; margin-inline:auto; padding-inline:clamp(20px,5vw,80px); }
+    .micro { font-size:11px; line-height:1.5; text-transform:uppercase; letter-spacing:.13em; }
+    .display { font-family:"Work Sans",sans-serif; font-weight:900; letter-spacing:-.085em; line-height:.88; }
+    .section-title { font-family:"Work Sans",sans-serif; font-weight:800; letter-spacing:-.065em; line-height:1.05; }
+    .accent { color:var(--acid); }
+    .muted { color:var(--muted); }
+    .rule { border-color:var(--line); }
+    .nav-link { transition:color .2s; }
+    .nav-link:hover { color:var(--acid); }
+    .arw { font-family:"Geist Mono",monospace; font-weight:700; }
+
+    .hero { min-height:690px; min-height:max(690px,calc(90 * min(var(--vh, 1vh), 1vh))); position:relative; isolation:isolate; overflow:hidden; display:flex; align-items:center; }
+    .hero::before { content:""; position:absolute; inset:0; z-index:-2; background:radial-gradient(ellipse at 75% 45%,#30382a 0%,#181a17 38%,#101110 72%); }
+    #shader { position:absolute; inset:0; width:100%; height:100%; z-index:-1; opacity:.72; pointer-events:none; }
+    .hero-shade { position:absolute; inset:0; z-index:-1; pointer-events:none; background:linear-gradient(90deg,#101110 0%,rgba(16,17,16,.97) 20%,rgba(16,17,16,.55) 58%,rgba(16,17,16,.12) 100%); }
+    .hero-title { font-size:clamp(76px,15vw,224px); }
+    .hero-title .outline { color:transparent; -webkit-text-stroke:1px var(--paper); }
+    .glitch:hover { text-shadow:3px 0 var(--acid),-3px 0 #f7f7ef; }
+    /* Angled cut with continuous border (outer frame = border color, inner face = fill) */
+    .cut-frame {
+      display:inline-flex; padding:1px; text-decoration:none;
+      clip-path:polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+      transition:transform .2s, background .2s;
+    }
+    .cut-frame:hover { transform:translate(3px,-3px); }
+    .cut-face {
+      display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
+      width:100%; padding:1rem 1.5rem; font-weight:700; line-height:1.2;
+      clip-path:polygon(0 0, calc(100% - var(--cut-inner)) 0, 100% var(--cut-inner), 100% 100%, 0 100%);
+      transition:background .2s, color .2s;
+    }
+    .btn-primary-frame { background:var(--acid); }
+    .btn-primary-frame:hover { background:#b3df38; }
+    .btn-primary-face { background:var(--acid); color:var(--ink); }
+    .btn-primary-frame:hover .btn-primary-face { background:#b3df38; }
+    .btn-secondary-frame { background:var(--line); }
+    .btn-secondary-frame:hover { background:var(--paper); }
+    .btn-secondary-face { background:#171916; color:var(--paper); }
+    .btn-secondary-frame:hover .btn-secondary-face { color:var(--paper); }
+    .btn-pad-lg .cut-face { padding:1.25rem 2rem; }
+    .hero-ctas { display:flex; flex-direction:column; gap:.75rem; }
+    .hero-ctas .cut-frame { width:100%; }
+    @media(min-width:768px) {
+      .hero-ctas { flex-direction:row; flex-wrap:wrap; }
+      .hero-ctas .cut-frame { width:auto; }
+    }
+    .project { transition:background .22s,transform .22s,border-color .22s; }
+    .project:hover { background:#20231e; border-color:#a5bb61; transform:translateY(-3px); }
+    .project-link { color:var(--paper); transition:color .2s; display:inline-flex; align-items:center; gap:.4rem; }
+    .project-link:hover { color:var(--acid); }
+    .skill-chip { border:1px solid var(--line); padding:8px 11px; line-height:1.4; }
+    @media(max-width:767px) {
+      .hero { min-height:650px; }
+      .hero-shade { background:linear-gradient(90deg,rgba(16,17,16,.96),rgba(16,17,16,.68)); }
+      #shader { opacity:.45; }
+      .hero-title { font-size:clamp(72px,18vw,130px); }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      .cut-frame,.project { transition:none; }
+      .cut-frame:hover { transform:none; }
+    }
+  </style>
+ </head>
+ <body>
+  <header class="relative z-10 border-b rule">
+   <nav class="shell flex items-center justify-between gap-5 py-5" aria-label="Main navigation">
+    <a class="font-bold tracking-tight" href="#top">~/n0ught</a>
+    <div class="flex items-center gap-5 sm:gap-9 micro">
+      <a class="nav-link" href="#work">WORK</a> 
+      <a class="nav-link" href="#about">ABOUT</a> 
+      <a class="nav-link" href="#contact">CONTACT</a>
+    </div>
+   </nav>
+  </header>
+  
+  <main id="top">
+   <section class="hero">
+    <canvas id="shader" aria-hidden="true"></canvas>
+    <div class="hero-shade"></div>
+    <div class="shell relative py-24">
+     <div class="max-w-5xl">
+      <p class="micro accent mb-9" data-scramble>[ AI BUILDER / COMMUNITY OPERATOR ]</p>
+      <h1 class="display hero-title glitch mb-8">n0ught<span class="outline" aria-hidden="true">.</span></h1>
+      <p class="max-w-2xl font-semibold leading-snug" style="font-family:'Work Sans',sans-serif;font-size:clamp(23px,3vw,38px);letter-spacing:-.04em">I build with AI.<br>
+       I build communities.</p>
+      <p class="muted max-w-xl leading-relaxed mt-7 mb-10">I turn AI tools into working products fast, and I keep online spaces active, helpful, and worth coming back to. Currently learning Web3 out loud.</p>
+      <div class="hero-ctas">
+        <a class="cut-frame btn-primary-frame" href="#work"><span class="cut-face btn-primary-face">SEE WHAT I SHIP <span class="arw" aria-hidden="true">&#8600;</span></span></a>
+        <a class="cut-frame btn-secondary-frame" href="#contact"><span class="cut-face btn-secondary-face">OPEN TO ROLES</span></a>
+      </div>
+     </div>
+     <div class="mt-20 flex flex-wrap justify-between gap-4 border-t rule pt-5 micro muted">
+       <span>AI / WEB3 / COMMUNITY</span> 
+       <span>SCROLL TO DECODE ↓</span>
+     </div>
+    </div>
+   </section>
+   
+   <section id="about" class="border-t rule py-24 md:py-32">
+    <div class="shell grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
+     <div>
+      <p class="micro accent mb-5" data-scramble>01 / THE STANCE</p>
+      <h2 class="section-title" style="font-size:clamp(42px,5vw,76px)">Two sides,<br>
+       one skill set<span class="accent">.</span></h2>
+     </div>
+     <div class="max-w-2xl space-y-6 leading-relaxed pt-1">
+      <p>I studied software engineering, then learned that leverage beats hours. I use AI tools to go from idea to shipped tool in days, not weeks.</p>
+      <p class="muted">The other half is people. Running my own Discord server since my third semester taught me to answer questions before they’re asked, keep conversations moving, and make newcomers feel at home.</p>
+      <p class="muted">In Web3 I bring both: I can ship the tooling and run the room.</p>
+     </div>
+    </div>
+   </section>
+   
+   <section id="offer" class="border-t rule py-24 md:py-32">
+    <div class="shell">
+     <p class="micro accent mb-5" data-scramble>02 / WHAT I BRING</p>
+     <h2 class="section-title mb-12" style="font-size:clamp(42px,5vw,76px)">For your team<span class="accent">.</span></h2>
+     <div class="grid md:grid-cols-3 gap-3">
+      <article class="project border rule p-6 md:p-9"><h3 class="font-bold mb-3">AI builder</h3><p class="muted leading-relaxed">Prototyping tools and internal automations with AI, from idea to working product.</p></article>
+      <article class="project border rule p-6 md:p-9"><h3 class="font-bold mb-3">Community</h3><p class="muted leading-relaxed">Moderation, onboarding, FAQs, recaps, and engagement that keeps members coming back.</p></article>
+      <article class="project border rule p-6 md:p-9"><h3 class="font-bold mb-3">Web3 research</h3><p class="muted leading-relaxed">Reading projects closely and explaining them in plain threads.</p></article>
+     </div>
+    </div>
+   </section>
+   
+   <section id="work" class="border-t rule py-24 md:py-32">
+    <div class="shell">
+     <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
+      <div>
+       <p class="micro accent mb-5" data-scramble>03 / SELECTED OUTPUT</p>
+       <h2 class="section-title" style="font-size:clamp(46px,7vw,100px)">Proof of work<span class="accent">.</span></h2>
+      </div>
+      <p class="micro muted max-w-52">SMALL TOOLS. REAL PROBLEMS. NO EXTRA NOISE.</p>
+     </div>
+     
+     <div class="grid md:grid-cols-2 gap-3">
+      <article class="project border rule p-6 md:p-9">
+       <div class="flex justify-between gap-4 micro muted mb-14">
+        <span>01 / 2026</span><span>SHIPPED</span>
+       </div>
+       <h3 class="section-title mb-5" style="font-size:clamp(30px,4vw,52px)">GeoScout</h3>
+       <p class="muted leading-relaxed mb-8">A city report when you need one, not after you’ve forgotten why. Cached for speed; 100/100 Lighthouse accessibility and SEO.</p>
+       <a class="project-link micro font-bold py-2" href="https://geoscout.pages.dev" target="_blank" rel="noopener noreferrer">VISIT PROJECT <span class="arw" aria-hidden="true">&#8599;</span></a>
+      </article>
+      
+      <article class="project border rule p-6 md:p-9">
+       <div class="flex justify-between gap-4 micro muted mb-14">
+        <span>02 / 2026</span><span>SHIPPED</span>
+       </div>
+       <h3 class="section-title mb-5" style="font-size:clamp(30px,4vw,52px)">JustHireMe</h3>
+       <p class="muted leading-relaxed mb-8">Job listings love jargon. Paste one in and get a clearer read on what the role actually wants.</p>
+       <a class="project-link micro font-bold py-2" href="https://just-hire-me.pages.dev" target="_blank" rel="noopener noreferrer">VISIT PROJECT <span class="arw" aria-hidden="true">&#8599;</span></a>
+      </article>
+      
+      <article class="project border rule p-6 md:p-9">
+       <div class="flex justify-between gap-4 micro muted mb-14">
+        <span>03 / 2025</span><span>USERSCRIPT</span>
+       </div>
+       <h3 class="section-title mb-5" style="font-size:clamp(30px,4vw,52px)">WordPopup</h3>
+       <p class="muted leading-relaxed mb-8">A tiny definition popup that meets you where you read, then blends into the page instead of taking it over.</p>
+       <span class="micro accent">SMALL TOOL</span>
+      </article>
+      
+      <article class="project border rule p-6 md:p-9">
+       <div class="flex justify-between gap-4 micro muted mb-14">
+        <span>04 / 2025</span><span>ACADEMIC WORK</span>
+       </div>
+       <h3 class="section-title mb-5" style="font-size:clamp(30px,4vw,52px)">MindEase</h3>
+       <p class="muted leading-relaxed mb-8">A web app built with Next.js and shadcn/ui, shaped around the paths people actually take.</p>
+       <span class="micro accent">WEB APP</span>
+      </article>
+      
+      <article class="project border rule p-6 md:p-9 md:col-span-2">
+       <div class="flex justify-between gap-4 micro muted mb-12">
+        <span>05 / 2026</span><span>OPEN SOURCE</span>
+       </div>
+       <h3 class="section-title mb-5" style="font-size:clamp(30px,4vw,52px)">OSS contributor</h3>
+       <p class="muted leading-relaxed max-w-2xl">Active on GitHub, mostly opening issues, documenting bugs, and helping maintainers keep track of feature requests and edge cases.</p>
+      </article>
+     </div>
+    </div>
+   </section>
+   
+   <section class="border-t rule py-24 md:py-32">
+    <div class="shell grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
+     <div>
+      <p class="micro accent mb-5" data-scramble>04 / THE ROUTE SO FAR</p>
+      <h2 class="section-title" style="font-size:clamp(42px,5vw,76px)">Not a straight<br>
+       line<span class="accent">.</span></h2>
+     </div>
+     <div>
+      <article class="border-t rule py-7 grid sm:grid-cols-[155px_1fr] gap-3">
+       <p class="micro accent">2026 — NOW</p>
+       <div>
+        <h3 class="font-bold mb-3">Web3 learner &amp; bug bounty hunter</h3>
+        <p class="muted leading-relaxed">Researching projects, sharing what I find, and testing in-scope targets on public bounty programs.</p>
+       </div>
+      </article>
+      <article class="border-t rule py-7 grid sm:grid-cols-[155px_1fr] gap-3">
+       <p class="micro accent">2025</p>
+       <div>
+        <h3 class="font-bold mb-3">Web design intern</h3>
+        <p class="muted leading-relaxed">Took Figma screens into the browser, from a landing page to a public-sector homepage redesign.</p>
+       </div>
+      </article>
+      <article class="border-t rule py-7 grid sm:grid-cols-[155px_1fr] gap-3">
+       <p class="micro accent">COLLEGE — NOW</p>
+       <div>
+        <h3 class="font-bold mb-3">Founder &amp; community lead, private Discord server</h3>
+        <p class="muted leading-relaxed">Started a private Discord server for friends. It became the place to untangle assignments, coordinate projects, and hang out.</p>
+       </div>
+      </article>
+      <article class="border-t border-b rule py-7 grid sm:grid-cols-[155px_1fr] gap-3">
+       <p class="micro accent">2023</p>
+       <div>
+        <h3 class="font-bold mb-3">Full-stack bootcamp</h3>
+        <p class="muted leading-relaxed">Finished in the top five out of 180 participants. Led a team of three for the capstone project.</p>
+       </div>
+      </article>
+     </div>
+    </div>
+   </section>
+   
+   <section class="border-t rule py-24">
+    <div class="shell">
+     <p class="micro accent mb-5" data-scramble>05 / CURRENT LOADOUT</p>
+     <h2 class="section-title mb-12" style="font-size:clamp(42px,5vw,76px)">Tools, not trophies<span class="accent">.</span></h2>
+     <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-9">
+      <div>
+       <h3 class="micro accent mb-5">AI / LEVERAGE</h3>
+       <p class="leading-loose">ChatGPT, Canva, Cursor, Zed, agent workflows</p>
+      </div>
+      <div>
+       <h3 class="micro accent mb-5">BUILD / WEB</h3>
+       <p class="leading-loose">TS, React, Astro, Hono, Bun, Cloudflare</p>
+      </div>
+      <div>
+       <h3 class="micro accent mb-5">EXPLORE / TEST</h3>
+       <p class="leading-loose">Project research, Bug bounty hunting</p>
+      </div>
+      <div>
+       <h3 class="micro accent mb-5">OPERATE / CONNECT</h3>
+       <p class="leading-loose">Linux, Discord moderation &amp; setup, X</p>
+      </div>
+     </div>
+    </div>
+   </section>
+   
+   <section id="contact" class="border-t rule py-24 md:py-32">
+    <div class="shell">
+     <p class="micro accent mb-7" data-scramble>06 / OPEN CHANNEL</p>
+     <h2 class="display mb-8" style="font-size:clamp(55px,10vw,150px)">Say hello<span class="accent">&#8599;</span></h2>
+     <div class="flex flex-wrap items-end justify-between gap-9">
+      <p class="muted max-w-xl leading-relaxed">Open to AI builder, community manager, ghostwriter, and other relevant roles. DMs open on X.</p>
+      <a class="cut-frame btn-primary-frame btn-pad-lg" href="https://x.com/n0xght" target="_blank" rel="noopener noreferrer"><span class="cut-face btn-primary-face">FIND ME ON X</span></a>
+     </div>
+    </div>
+   </section>
+  </main>
+  
+  <footer class="border-t rule">
+   <div class="shell flex flex-wrap items-center justify-center gap-3 py-7 text-base muted">
+    <span>© 2026 n0ught. All rights reserved.</span>
+   </div>
+  </footer>
+  
+  <script>
+    (() => {
+      const canvas = document.getElementById('shader');
+      const gl = canvas.getContext('webgl', { alpha:true, antialias:false, powerPreference:'low-power' });
+      if (!gl) return;
+      const vertex = `attribute vec2 position; void main(){gl_Position=vec4(position,0.,1.);}`;
+      const fragment = `
+        precision mediump float;
+        uniform vec2 resolution;
+        uniform vec2 pointer;
+        uniform float time;
+        float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+        void main(){
+          vec2 uv=gl_FragCoord.xy/resolution.xy;
+          vec2 p=(uv-.5)*vec2(resolution.x/resolution.y,1.);
+          vec2 m=(pointer-.5)*vec2(resolution.x/resolution.y,1.);
+          float ring=length(p-vec2(.38,0.)-m*.13);
+          float wave=sin(ring*24.-time*.6)*.27+sin(p.y*17.+p.x*9.+time*.3)*.12;
+          float field=exp(-ring*1.9)*.73+wave+.12;
+          vec2 grid=floor(gl_FragCoord.xy/5.);
+          float threshold=(mod(grid.x,4.)+mod(grid.y*3.,4.)*4.)/16.;
+          float dotMask=step(threshold,field);
+          float line=step(.985,fract((uv.y+time*.001)*43.));
+          float grain=hash(grid+floor(time*.7))*.11;
+          vec3 base=vec3(.43,.46,.39)*dotMask;
+          float highlight=step(.75,field+grain)*dotMask;
+          base+=vec3(.42,.58,.12)*highlight*.75;
+          base+=vec3(.1)*line*.2;
+          float fade=smoothstep(.0,.22,uv.x)*smoothstep(1.,.67,uv.x);
+          gl_FragColor=vec4(base,fade*.92);
+        }`;
+      function shader(type, source) {
+        const s=gl.createShader(type); gl.shaderSource(s,source); gl.compileShader(s);
+        return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null;
+      }
+      const vs=shader(gl.VERTEX_SHADER,vertex), fs=shader(gl.FRAGMENT_SHADER,fragment);
+      if (!vs||!fs) return;
+      const program=gl.createProgram();
+      gl.attachShader(program,vs); gl.attachShader(program,fs); gl.linkProgram(program);
+      if (!gl.getProgramParameter(program,gl.LINK_STATUS)) return;
+      gl.useProgram(program);
+      const buffer=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+      gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+      const position=gl.getAttribLocation(program,'position');
+      gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
+      const res=gl.getUniformLocation(program,'resolution');
+      const ptr=gl.getUniformLocation(program,'pointer');
+      const clock=gl.getUniformLocation(program,'time');
+      const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+      let mouse=[.5,.5], frame=0, start=performance.now();
+      function resize(){
+        const box=canvas.getBoundingClientRect(), ratio=Math.min(devicePixelRatio||1,1.5);
+        canvas.width=Math.max(1,Math.floor(box.width*ratio));
+        canvas.height=Math.max(1,Math.floor(box.height*ratio));
+        gl.viewport(0,0,canvas.width,canvas.height);
+        draw(performance.now());
+      }
+      function draw(now){
+        gl.uniform2f(res,canvas.width,canvas.height);
+        gl.uniform2f(ptr,mouse[0],mouse[1]);
+        gl.uniform1f(clock,motion.matches?0:(now-start)*.001);
+        gl.drawArrays(gl.TRIANGLES,0,6);
+      }
+      function tick(now){ draw(now); frame=requestAnimationFrame(tick); }
+      function syncMotion(){
+        cancelAnimationFrame(frame);
+        if(motion.matches) draw(performance.now());
+        else frame=requestAnimationFrame(tick);
+      }
+      canvas.parentElement.addEventListener('pointermove',e=>{
+        const rect=canvas.getBoundingClientRect();
+        mouse=[(e.clientX-rect.left)/rect.width,1-(e.clientY-rect.top)/rect.height];
+        if(motion.matches) draw(performance.now());
+      });
+      window.addEventListener('resize',resize);
+      motion.addEventListener('change',syncMotion);
+      resize(); syncMotion();
+    })();
+
+    /* Scramble-on-scroll for eyebrows / section micro labels */
+    (() => {
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (motion.matches) return;
+      const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#%*';
+      const nodes = document.querySelectorAll('[data-scramble]');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          io.unobserve(el);
+          const finalHTML = el.innerHTML;
+          const finalText = el.textContent;
+          const len = finalText.length;
+          const dur = 1100;
+          const tick = 45; /* lower tick rate vs every rAF */
+          const start = performance.now();
+          const keep = /[\s.,\[\]\/]/;
+          let last = -1;
+          function frame(now) {
+            if (now - last < tick && now - start < dur) {
+              requestAnimationFrame(frame);
+              return;
+            }
+            last = now;
+            const t = Math.min(1, (now - start) / dur);
+            const reveal = Math.floor(t * len);
+            let out = '';
+            for (let i = 0; i < len; i++) {
+              const ch = finalText[i];
+              if (keep.test(ch) || i < reveal) out += ch;
+              else out += glyphs[(Math.random() * glyphs.length) | 0];
+            }
+            el.textContent = out;
+            if (t < 1) requestAnimationFrame(frame);
+            else el.innerHTML = finalHTML;
+          }
+          requestAnimationFrame(frame);
+        });
+      }, { threshold: 0.28, rootMargin: '0px 0px -8% 0px' });
+      nodes.forEach((el) => io.observe(el));
+    })();
+  </script>
+ </body>
+</html>
