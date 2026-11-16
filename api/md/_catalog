@@ -1,0 +1,8 @@
+# Markdown catalog
+
+Static markdown routes on this site:
+
+- [/index.md](/index.md) - home, full page copy
+- [/llms.txt](/llms.txt) - short AI index
+- [/llms-full.txt](/llms-full.txt) - every markdown page concatenated
+- [/ai.txt](/ai.txt) - AI usage policy

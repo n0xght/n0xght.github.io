@@ -1,0 +1,124 @@
+# n0ught
+
+> I build with AI. I build communities. I turn AI tools into working products fast, and I keep online spaces active, helpful, and worth coming back to.
+
+Canonical: https://n0ught.me/
+Last updated: 2026-11-06
+
+\[ AI BUILDER / COMMUNITY OPERATOR \]
+
+I build with AI.  
+I build communities.
+
+I turn AI tools into working products fast, and I keep online spaces active, helpful, and worth coming back to. Currently learning Web3 out loud.
+
+AI / WEB3 / COMMUNITY
+
+## 01 / THE STANCE: Two sides, one skill set
+
+I studied software engineering, then learned that leverage beats hours. I use AI tools to go from idea to shipped tool in days, not weeks.
+
+The other half is people. Running my own Discord server since my third semester taught me to answer questions before they’re asked, keep conversations moving, and make newcomers feel at home.
+
+In Web3 I bring both: I can ship the tooling and run the room.
+
+## 02 / WHAT I BRING: For your team
+
+### AI builder
+
+Prototyping tools and internal automations with AI, from idea to working product.
+
+### Community
+
+Moderation, onboarding, FAQs, recaps, and engagement that keeps members coming back.
+
+### Web3 research
+
+Reading projects closely and explaining them in plain threads.
+
+## 03 / SELECTED OUTPUT: Proof of work
+
+SMALL TOOLS. REAL PROBLEMS. NO EXTRA NOISE.
+
+### GeoScout
+
+01 / 2026 · SHIPPED
+
+A city report when you need one, not after you’ve forgotten why. Cached for speed; 100/100 Lighthouse accessibility and SEO.
+
+[VISIT PROJECT](https://geoscout.pages.dev)
+
+### JustHireMe
+
+02 / 2026 · SHIPPED
+
+Job listings love jargon. Paste one in and get a clearer read on what the role actually wants.
+
+[VISIT PROJECT](https://just-hire-me.pages.dev)
+
+### WordPopup
+
+03 / 2025 · USERSCRIPT
+
+A tiny definition popup that meets you where you read, then blends into the page instead of taking it over.
+
+SMALL TOOL
+
+### MindEase
+
+04 / 2025 · ACADEMIC WORK
+
+A web app built with Next.js and shadcn/ui, shaped around the paths people actually take.
+
+WEB APP
+
+### OSS contributor
+
+05 / 2026 · OPEN SOURCE
+
+Active on GitHub, mostly opening issues, documenting bugs, and helping maintainers keep track of feature requests and edge cases.
+
+## 04 / THE ROUTE SO FAR: Not a straight line
+
+### Web3 learner & bug bounty hunter
+
+2026 — NOW
+
+Researching projects, sharing what I find, and testing in-scope targets on public bounty programs.
+
+### Web design intern
+
+2025
+
+Took Figma screens into the browser, from a landing page to a public-sector homepage redesign.
+
+### Founder & community lead, private Discord server
+
+COLLEGE — NOW
+
+Started a private Discord server for friends. It became the place to untangle assignments, coordinate projects, and hang out.
+
+### Full-stack bootcamp
+
+2023
+
+Finished in the top five out of 180 participants. Led a team of three for the capstone project.
+
+## 05 / CURRENT LOADOUT: Tools, not trophies
+
+- **AI / LEVERAGE**: ChatGPT, Canva, Cursor, Zed, agent workflows
+- **BUILD / WEB**: TS, React, Astro, Hono, Bun, Cloudflare
+- **EXPLORE / TEST**: Project research, Bug bounty hunting
+- **OPERATE / CONNECT**: Linux, Discord moderation & setup, X
+
+## 06 / OPEN CHANNEL: Say hello
+
+Open to AI builder, community manager, ghostwriter, and other relevant roles. DMs open on X.
+
+[FIND ME ON X](https://x.com/n0xght)
+
+## Related
+
+- [GeoScout](https://geoscout.pages.dev)
+- [JustHireMe](https://just-hire-me.pages.dev)
+- [n0ught on X](https://x.com/n0xght)

@@ -1,0 +1,19 @@
+# Keep in sync with /robots.txt, /llms.txt and /ai.txt (all generated from src/site.mjs).
+# LLM overview: https://n0ught.me/llms.txt  AI usage policy: https://n0ught.me/ai.txt
+# All named agents share ONE group so they get exactly the wildcard rules (no bypass via a UA-specific group).
+User-agent: *
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://n0ught.me/sitemap.xml

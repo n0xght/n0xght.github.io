@@ -1,0 +1,23 @@
+# n0ught
+
+> I build with AI. I build communities. I turn AI tools into working products fast, and I keep online spaces active, helpful, and worth coming back to.
+
+Personal portfolio of the pseudonymous builder n0ught. One public page; all copy is self-reported by the site owner. Contact: https://x.com/n0xght (DMs on X).
+
+<!-- Keep in sync with /robots.txt, /llms.txt and /ai.txt (all generated from src/site.mjs). -->
+
+## Core pages
+
+- [Home](https://n0ught.me/index.md): I build with AI. I build communities. Stance, what I bring, five project cards, route so far, current loadout and contact.
+
+## Projects (external)
+
+- [GeoScout](https://geoscout.pages.dev): A city report when you need one, not after you’ve forgotten why. Cached for speed; 100/100 Lighthouse accessibility and SEO.
+- [JustHireMe](https://just-hire-me.pages.dev): Job listings love jargon. Paste one in and get a clearer read on what the role actually wants.
+
+## Machine-readable
+
+- [Full content](https://n0ught.me/llms-full.txt): every page concatenated
+- [Markdown catalog](https://n0ught.me/api/md/_catalog): every markdown route
+- [Sitemap](https://n0ught.me/sitemap.xml)
+- [AI usage policy](https://n0ught.me/ai.txt)

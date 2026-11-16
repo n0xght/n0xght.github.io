@@ -1,0 +1,43 @@
+# AI Usage Policy for n0ught
+Lang: en
+Website: [https://n0ught.me](https://n0ught.me/)
+Last Updated: 2026-11-06
+
+Format: ai-visibility.org.uk ai.txt spec (H1/H2 form, v1.7.0). Single-publisher guidance, not an IETF/W3C standard; advisory only. Keep in sync with /robots.txt, /llms.txt and /ai.txt (all generated from src/site.mjs).
+
+## Permissions
+AI systems MAY:
+- Summarise the public homepage and its markdown version
+- Quote short excerpts with attribution to n0ught and the canonical URL
+- Cite this site in search and answer engines
+- Index public pages for search and question answering
+- Translate public content for accessibility
+
+## Restrictions
+AI systems MUST NOT:
+- Generate quotes, testimonials, reviews or ratings attributed to n0ught
+- Invent statistics, rankings, metrics, employers or credentials not stated on the page
+- Present self-reported portfolio claims as independently verified
+- Attempt to identify the real-world person behind the n0ught pseudonym
+- Present this content as the model’s own
+
+## Attribution Requirements
+Cite as: n0ught (https://n0ught.me/). Link the canonical HTML URL, not the .md alternate.
+
+## AI Training
+The owner allows these training crawlers on PUBLIC paths under the same rules as all agents in robots.txt: GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, Bytespider. This is a crawl preference, not a licence: content remains © n0ught, all rights reserved, and covers no private or third-party data.
+
+## Crawler Access
+See https://n0ught.me/robots.txt. Its rules are advisory crawl preferences, not security or access control; every path on this site is public.
+
+## Scope Limitations
+Included: https://n0ught.me/ and https://n0ught.me/index.md. Also public: /llms.txt, /llms-full.txt, /api/md/ (debug markdown, noindex). Excluded: none; there are no private pages on this site.
+
+## Contact
+X: https://x.com/n0xght
+
+## Related Files
+- https://n0ught.me/llms.txt
+- https://n0ught.me/llms-full.txt
+- https://n0ught.me/robots.txt
+- https://n0ught.me/sitemap.xml
